@@ -61,14 +61,14 @@ jobs:
       echo argument count is ${{ steps.report-count.outputs.arg-count }}
       exit 1
       
-   create-issue-on-failure:
+  create-issue-on-failure:
 
-    permissions:
+     permissions:
       issues: write
-    needs: [test-run, count-args]
-    if: always() && failure() 
-    uses: ./.github/workflows/create-failure-issue.yml 
-    with:
+     needs: [count-args]
+     if: always() && failure() 
+     uses: ./.github/workflows/create-failure-issue.yml 
+     with:
       title: "Automated workflow failure issue for commit ${{ github.sha }}"
       body: "This issue was automatically created by the GitHub Action workflow ** ${{ github.workflow }} **"
 
